@@ -38,7 +38,7 @@ static float flowHeight = 300;
 //    _carousel.pageTintColor = [UIColor greenColor];
 //    _carousel.hiddenPageCtr = YES;
 //    _carousel.duration = 5 ;
-    _carousel.isAutoScroll = NO;
+//    _carousel.isAutoScroll = NO;
     
     
     

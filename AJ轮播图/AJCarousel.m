@@ -23,7 +23,8 @@ static NSString *cellID = @"cellID";
 @property(nonatomic,strong)  NSTimer *timer ;
 /*! 保存图片切换时间 */
 @property(nonatomic,assign) NSTimeInterval timeInterval;
-
+/*! 是否自动轮播 */
+@property(nonatomic,assign) BOOL isScroll;
 
 @end
 
@@ -40,6 +41,8 @@ static NSString *cellID = @"cellID";
         self.delegate =self;
         /*! 默认图片滑动时间为2 */
         _timeInterval = 2.0  ;
+        /*! 初始化默认轮播 */
+        _isScroll = YES;
         self.imageArray = imageArray;
         /*! 不显示滑动条 */
         self.showsHorizontalScrollIndicator = NO;
@@ -117,7 +120,7 @@ static NSString *cellID = @"cellID";
 #pragma mark 定时器
 
 - (void)addTimer {
-    if (_isAutoScroll) {
+    if (_isScroll) {
         NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:_timeInterval target:self selector:@selector(pageChange) userInfo:nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
         self.timer = timer;
@@ -196,7 +199,14 @@ static NSString *cellID = @"cellID";
     return _timeInterval;
 }
 
-
+- (void)setIsAutoScroll:(BOOL)isAutoScroll{
+    _isScroll = isAutoScroll;
+    [self removeTimer];
+    [self addTimer];
+}
+- (BOOL)isAutoScroll{
+    return _isScroll;
+}
 - (void)dealloc{
     NSLog(@"轮播图没有内存泄露");
 }
